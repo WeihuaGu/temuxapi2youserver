@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "shelljs": "^0.8.5",
+    "termux": "^1.1.1"
+  }
+}
