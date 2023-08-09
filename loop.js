@@ -1,10 +1,12 @@
 var { smslist , batteryStatus ,vibrate } = require('./termuxapi')
+var { sendtoserver } = require('./send');
 
 const wait = (miao)=>{
     let shelljs = require('shelljs');
     console.log('sleep sec: '+miao);
     shelljs.exec( "sleep" + " " + miao , { async : false } ) ;  
 };
+
 const giveavibrate = ()=>{
 vibrate.duration(1000)
         .run()
@@ -13,6 +15,7 @@ vibrate.duration(1000)
 const getbat = ()=>{
  return  batteryStatus.run()
 }
+
 const getsms = ()=>{
  return  smslist.run()
 }
@@ -23,15 +26,13 @@ return new Promise((resolve, reject) => {
 	    .catch((err)=>{reject(err)});
  });
 }
+
 const checksms = ()=>{
 return new Promise((resolve, reject) => {
     getsms().then((smslist)=>{resolve(smslist)});
  });
 }
-const sendtoserver = (info)=>{
-	console.log('send to server');
-	console.log(info);
-}
+
 const doloop = async (waitime)=>{
   var store = {
 	sms:'',
@@ -41,9 +42,9 @@ const doloop = async (waitime)=>{
 	await checkbat().then((batinfo)=>{
 		const batinfostr=JSON.stringify(batinfo)
 		if(batinfostr!=store.bat){
-		//	console.log('last diff');
 			store.bat=batinfostr;
-			sendtoserver(batinfo);
+			giveavibrate();
+			sendtoserver(batinfostr);
 		}
 		else{
 		//	console.log('last same');

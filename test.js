@@ -1,8 +1,5 @@
-var { smslist , batteryStatus ,vibrate } = require('./termuxapi')
-vibrate.duration(1000)
-	.run()
-batteryStatus.run()
-   .then(function (text) {
-     // ...
-	console.log(text)
-   })
+var { encrypt } = require('./encrypt');
+
+const text = '你好';
+const crypted = encrypt(text); // 加密
+console.log(crypted);
