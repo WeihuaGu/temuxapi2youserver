@@ -5,3 +5,5 @@ Z6CZZo1vYgtzhlFnxd4V7Ra+aIwLZaXT/h4eE+/cFsL4VAJI5wXh5Mq4Vtu7uEje
 ogAOgXACaIqiFyrk3wIDAQAB
 -----END PUBLIC KEY-----
 `;
+//aeskey必须为8位、16位
+exports.aeskey = '1111111i'
