@@ -38,6 +38,9 @@ const doloop = async (waitime)=>{
 	sms:'',
 	bat:''
   }
+  const lastwhat = ()=>{
+    return ['sms'];
+  }
   while(true){
 	await Promise.all([checkbat(), checksms()])
   	  .then(results => {
@@ -45,7 +48,7 @@ const doloop = async (waitime)=>{
 		smsinfo=results[1];
 		const batinfostr=JSON.stringify(batinfo)
 		const smsinfostr=JSON.stringify(smsinfo)
-		if(batinfostr!=store.bat | smsinfostr!=store.sms){
+		if(smsinfostr!=store[lastwhat()]){
 			store.bat=batinfostr;
 			store.sms=smsinfostr;
 			giveavibrate();

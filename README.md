@@ -19,7 +19,7 @@ node loop.js
 ### decrypt from your server
 To decrypt the message sent by the server while ensuring its security, please follow the steps outlined below:
 #### Obtain the encrypted message and the encrypted key.
-- from http post header,get decryptpass.
+- from post json decryptpass get decryptpass.
 - Perform asymmetric decryption using a private key to retrieve the symmetric encryption key and the initialization vector (IV) combined.
 #### Decrypt the original message using the symmetric encryption key and the IV.
 - Perform asymmetric decryption using your private key:

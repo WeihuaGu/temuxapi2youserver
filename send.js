@@ -12,22 +12,19 @@ const headers = {
 const sendPostRequest = (url, headers, body, callback)=>{
     axios.post(url, body, { headers })
   	.then(response => {
-    		// 处理响应
-		callback(response.data);
+		callback(null,response.data);
   	})
   	.catch(error => {
-    	// 处理错误
-    	console.error(error);
+		callback(error,null);
   	});
 
 }
 
 const sendtoserver = (info)=>{
   const encrypted = encrypt(info); // 加密
-  const body = JSON.stringify({ info: encrypted.encryptedcontent });
-  console.log('send to server');
-  headers['DecryptPass'] = encrypted.encryptedpass;
-  sendPostRequest(apiurl,headers,body,(res)=>{console.log(res);});
+  const body = JSON.stringify({ decryptpass:encryptedpass,info: encrypted.encryptedcontent });
+  console.log(info);
+  sendPostRequest(apiurl,headers,body,(res)=>{console.log('sended to server')});
 }
 
 
