@@ -28,6 +28,17 @@ exports.encrypt = (data) => {
 	 encryptedcontent:aesencrypted
  }
 };
+exports.genkeypair = ()=>{
+	// 生成RSA密钥对
+  const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
+  	modulusLength: 2048, // 密钥长度，可以根据需要调整
+  });
+  return {
+	  publickey:publicKey.export({ type: 'spki', format: 'pem' }),
+	  privatekey:privateKey.export({ type: 'pkcs8', format: 'pem' })
+  }
+}
+
 
 
 
