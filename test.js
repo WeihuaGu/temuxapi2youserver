@@ -1,6 +1,6 @@
-var { encrypt, getencryptedpass } = require('./encrypt');
+var { encrypt } = require('./encrypt');
 
 const text = '你好';
-console.log(getencryptedpass());
 const crypted = encrypt(text); // 加密
-console.log(crypted);
+console.log(crypted.encryptedpass);
+console.log(crypted.encryptedcontent);

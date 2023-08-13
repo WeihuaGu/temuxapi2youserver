@@ -1,4 +1,4 @@
-var { encrypt , getencryptedpass } = require('./encrypt');
+var { encrypt } = require('./encrypt');
 const http = require('http');
 const https = require('https');
 
@@ -7,8 +7,7 @@ const termuxapiurl = process.env.sendtermuxapiurl;
 const apiurl = termuxapiurl || 'https://api.example.com/post-endpoint';
 const headers = {
   'Content-Type': 'application/json',
-  'DecryptPass': getencryptedpass(),
-  'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+  'Authorization': 'YOUR_SERVER_ACCESS_TOKEN'
 };
 
 const sendPostRequest = (url, headers, body,callback)=>{
@@ -38,8 +37,9 @@ const sendPostRequest = (url, headers, body,callback)=>{
 
 const sendtoserver = (info)=>{
   const encrypted = encrypt(info); // 加密
-  const body = JSON.stringify({ info: encrypted });
+  const body = JSON.stringify({ info: encrypted.encryptedcontent });
   console.log('send to server');
+  headers['DecryptPass'] = encrypted.encryptedpass;
   sendPostRequest(apiurl,headers,body,(res)=>{console.log(res);});
 }
 
