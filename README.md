@@ -1,3 +1,4 @@
+[中文文档](https://raw.githubusercontent.com/WeihuaGu/termuxapi2youserver/main/README-zh.md)
 # temuxapi2youserver
 termux api get you phone info,and send them to you own server
 ### install
