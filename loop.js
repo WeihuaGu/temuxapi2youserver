@@ -8,7 +8,7 @@ const wait = (miao)=>{
 };
 
 const giveavibrate = ()=>{
-vibrate.duration(1000)
+vibrate.duration(300)
         .run()
 }
 
@@ -47,9 +47,9 @@ const doloop = async (waitime)=>{
 			sendtoserver(batinfostr);
 		}
 		else{
-		//	console.log('last same');
-		//	console.log(batinfostr);
-		//	console.log(store.bat);
+			console.log('last same');
+			console.log(batinfostr);
+			console.log(store.bat);
 		}
 
 	   })
