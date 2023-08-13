@@ -11,6 +11,7 @@ termux api get you phone info,and send them to you own server
 ### configure
 #### password
 - in key.js,input you pubkey
+#### post url
 - in send.js configure apiurl or export sendtermuxapiurl
 
 ### start 
