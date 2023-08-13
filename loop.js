@@ -39,23 +39,26 @@ const doloop = async (waitime)=>{
 	bat:''
   }
   while(true){
-	await checkbat().then((batinfo)=>{
+	await Promise.all([checkbat(), checksms()])
+  	  .then(results => {
+		batinfo=results[0];
+		smsinfo=results[1];
 		const batinfostr=JSON.stringify(batinfo)
-		if(batinfostr!=store.bat){
+		const smsinfostr=JSON.stringify(smsinfo)
+		if(batinfostr!=store.bat | smsinfostr!=store.sms){
 			store.bat=batinfostr;
+			store.sms=smsinfostr;
 			giveavibrate();
-			sendtoserver(batinfostr);
+			sendtoserver(store);
 		}
 		else{
 			console.log('last same');
-			console.log(batinfostr);
-			console.log(store.bat);
 		}
 
-	   })
-	   .catch((err)=>{
-		console.log(err);
-	   });
+  	})
+  	.catch(error => {
+    		console.error('Error:', error);
+  	});
 
 	wait(waitime);
   }
