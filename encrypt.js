@@ -1,21 +1,16 @@
 const crypto = require('crypto');
 const key = require('./key');
-var aes_encrypt = (data, aeskey, iv) =>{
-    iv = iv || null;
-    var clearEncoding = 'utf8';
-    var cipherEncoding = 'base64';
-    var cipherChunks = [];
-    var cipher = crypto.createCipheriv('aes-256-ecb', aeskey, iv);
-    cipher.setAutoPadding(true);
-    cipherChunks.push(cipher.update(data, clearEncoding, cipherEncoding));
-    cipherChunks.push(cipher.final(cipherEncoding));
-    return cipherChunks.join('');
+var aes_encrypt = (text, key, iv) =>{
+  const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+  let encrypted = cipher.update(text, 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  return encrypted;
+}
+exports.getencryptedpass = ()=>{
+	const passencrypted = crypto.publicEncrypt(key.pubKey, Buffer.from(key.aeskey+key.aesiv));
+	return passencrypted;
 }
 exports.encrypt = (data) => {
- console.log(key.aeskey);
- const aesencrypted = aes_encrypt(Buffer.from(data),key.aeskey,null);
- //const aeskeyencrypted= crypto.publicEncrypt(key.pubKey, Buffer.from(key.aeskey));
- //console.log(aeskeyencrypted);
- //console.log(aesencrypted);
+ const aesencrypted = aes_encrypt(data,key.aeskey,key.aesiv);
  return aesencrypted;
 };

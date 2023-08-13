@@ -1,10 +1,12 @@
-var { encrypt } = require('./encrypt');
+var { encrypt , getencryptedpass } = require('./encrypt');
 
 
 const sendtoserver = (info)=>{
-  const crypted = encrypt(info); // 加密
+  const encrypted = encrypt(info); // 加密
+  const encryptedaespass = getencryptedpass();
   console.log('send to server');
-  console.log(crypted);
+  console.log(encrypted);
+  console.log(encryptedaespass);
 
 
 }
