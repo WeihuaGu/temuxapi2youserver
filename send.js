@@ -10,7 +10,7 @@ const headers = {
   'Authorization': 'YOUR_SERVER_ACCESS_TOKEN'
 };
 
-const sendPostRequest = (url, headers, body,callback)=>{
+const sendPostRequest = (url, headers, body, callback)=>{
     const options = {
       method: 'POST',
       headers: headers
@@ -25,6 +25,9 @@ const sendPostRequest = (url, headers, body,callback)=>{
       response.on('end', () => {
 	callback(responseData);
       });
+    });
+    request.on('error', (e) => {
+  	console.log(`problem with request: ${e.message}`);
     });
     if (body) {
       console.log('in request');
