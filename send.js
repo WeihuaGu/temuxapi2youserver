@@ -24,7 +24,14 @@ const sendtoserver = (info)=>{
   const encrypted = encrypt(info); // 加密
   const body = JSON.stringify({ decryptpass:encrypted.encryptedpass,info: encrypted.encryptedcontent });
   console.log(info);
-  sendPostRequest(apiurl,headers,body,(err,res)=>{console.log('sended to server')});
+  sendPostRequest(apiurl,headers,body,(err,res)=>{
+     if(err){
+	  console.log(err)
+	  return
+     }
+     console.log('sended to server')
+     console.log(res);
+  });
 }
 
 
