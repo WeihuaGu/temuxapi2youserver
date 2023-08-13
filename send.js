@@ -28,6 +28,8 @@ const sendPostRequest = (url, headers, body,callback)=>{
       });
     });
     if (body) {
+      console.log('in request');
+      console.log(body);
       request.write(body);
     }
     request.end();
