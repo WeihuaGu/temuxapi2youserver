@@ -49,7 +49,7 @@ const doloop = async (waitime)=>{
 			store.bat=batinfostr;
 			store.sms=smsinfostr;
 			giveavibrate();
-			sendtoserver(store);
+			sendtoserver(JSON.stringify(store));
 		}
 		else{
 			console.log('last same');
