@@ -1,6 +1,2 @@
-var { encrypt } = require('./encrypt');
-
-const text = '你好';
-const crypted = encrypt(text); // 加密
-console.log(crypted.encryptedpass);
-console.log(crypted.encryptedcontent);
+var { sendtoserver } = require('./send');
+sendtoserver('haha');

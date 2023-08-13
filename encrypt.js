@@ -32,14 +32,24 @@ exports.encrypt = (data) => {
 
 
 //以下是解密函数的示例，本项目并不使用，用于服务端解密之参考
-exports.decrypt = (encryptedText, key, iv) => {
+var aes_decrypt = (encrypted, key, iv) => {
   const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-  let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
+  let decrypted = decipher.update(encrypted, 'hex', 'utf8');
   decrypted += decipher.final('utf8');
   return decrypted;
-}
-exports.decryptWithPrivateKey = (privateKey, encryptedText) => {
-  const buffer = Buffer.from(encryptedText, 'base64');
-  const decrypted = crypto.privateDecrypt(privateKey, buffer);
-  return decrypted.toString('utf8');
-}
+};
+
+var getDecryptedMessage = (encryptedPass, encryptedContent) => {
+  const decryptedPass = crypto.privateDecrypt(key.privKey, Buffer.from(encryptedPass, 'base64'));
+  const passAndIv = decryptedPass.toString('utf8');
+  const key = passAndIv.substring(0, 32);
+  const iv = passAndIv.substring(32);
+  const decryptedContent = aes_decrypt(encryptedContent, key, iv);
+  return decryptedContent;
+};
+
+exports.decrypt = (encryptedData) => {
+  const { encryptedpass, encryptedcontent } = encryptedData;
+  const decryptedMessage = getDecryptedMessage(encryptedpass, encryptedcontent);
+  return decryptedMessage;
+};

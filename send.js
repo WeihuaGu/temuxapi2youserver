@@ -1,38 +1,24 @@
 var { encrypt } = require('./encrypt');
-const http = require('http');
-const https = require('https');
+const axios = require('axios');
 
 // 获取环境变量 sendtermuxapiurl 的值
 const termuxapiurl = process.env.sendtermuxapiurl;
-const apiurl = termuxapiurl || 'https://api.example.com/post-endpoint';
+const apiurl = termuxapiurl || 'http://localhost:4000/tool/echo';
 const headers = {
-  'Content-Type': 'application/json',
-  'Authorization': 'YOUR_SERVER_ACCESS_TOKEN'
+  'content-type':'application/json',
+  'authorization':'YOUR_SERVER_ACCESS_TOKEN'
 };
 
 const sendPostRequest = (url, headers, body, callback)=>{
-    const options = {
-      method: 'POST',
-      headers: headers
-    };
-
-    const protocol = url.startsWith('https://') ? https : http;
-    const request = protocol.request(url, options, response => {
-      let responseData = '';
-      response.on('data', chunk => {
-        responseData += chunk;
-      });
-      response.on('end', () => {
-	callback(responseData);
-      });
-    });
-    request.on('error', (e) => {
-  	console.log(`problem with request: ${e.message}`);
-    });
-    console.log('in request');
-    console.log(body);
-    if(request.write(body))
-  	  request.end();
+    axios.post(url, body, { headers })
+  	.then(response => {
+    		// 处理响应
+		callback(response.data);
+  	})
+  	.catch(error => {
+    	// 处理错误
+    	console.error(error);
+  	});
 
 }
 
